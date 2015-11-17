@@ -21,14 +21,6 @@ echo "    use_dhcp: false" >> /etc/os-net-config/config.yaml
 echo "    routes: []" >> /etc/os-net-config/config.yaml
 echo "    addresses:" >> /etc/os-net-config/config.yaml
 
-
-# for i in $(seq 2 $bm_node_count)
-# do
-#     nic="eth$(($i-1))"
-#     echo "- {name: $nic, type: interface, use_dhcp: true, defroute: no}" >> /etc/os-net-config/config.yaml
-# done
-# os-net-config --verbose
-
 export OS_USERNAME=$os_user
 export OS_TENANT_NAME=$os_tenant
 export OS_PASSWORD=$os_password
