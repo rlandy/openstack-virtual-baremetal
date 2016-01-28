@@ -63,8 +63,8 @@ def main():
         auth_url=auth_url
     )
 
-    bmc_id = [ s.id for s in nova.servers.list() if 'bmc' in s.name ]
-    bm_id = [ s.id for s in nova.servers.list() if 'baremetal' in s.name ]
+    bmc_id = [ s.id for s in nova.servers.list() if bmc_base in s.name ]
+    bm_id = [ s.id for s in nova.servers.list() if baremetal_base in s.name ]
 
     all_ports = sorted(neutron.list_ports()['ports'], key=lambda x: x['name'])
     bmc_ports = [p for p in all_ports if p['device_id'] in bmc_id]
