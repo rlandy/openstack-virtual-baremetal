@@ -17,11 +17,6 @@ parameters:
     description: CIDR for private network subnet
     default: 10.0.1.0/24
 
-  private_dns_nameservers:
-    type: string
-    description: DNS nameservers to be added to the private network subnet
-    default: ""
-
 resources:
 
   network:
@@ -35,7 +30,6 @@ resources:
       network: {get_resource: network}
       name: {get_param: private_net}
       cidr: {get_param: private_net_cidr}
-      dns_nameservers: {get_param: private_dns_nameservers}
 
   router:
     type: OS::Neutron::Router
