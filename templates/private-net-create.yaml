@@ -20,6 +20,7 @@ parameters:
   private_dns_nameservers:
     type: string
     description: DNS nameservers to be added to the private network subnet
+    default: ""
 
 resources:
 
