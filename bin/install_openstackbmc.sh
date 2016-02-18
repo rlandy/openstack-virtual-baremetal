@@ -39,6 +39,7 @@ export OS_AUTH_URL=$os_auth_url
 
 private_subnet=$(neutron net-show -f value -c subnets $private_net)
 prefix_len=$(neutron subnet-show -f value -c cidr $private_subnet | awk -F / '{print $2}')
+gateway=$(neutron subnet-show $private_subnet | grep gateway | awk '{print $4}')
 
 index=0
 for i in `nova list|grep $bmc_prefix|awk -F= '{print $NF}'| sed 's/  .*//'`
@@ -74,6 +75,8 @@ EOF
     echo "    - ip_netmask: $bmc_ip/$prefix_len" >> /etc/os-net-config/config.yaml
 index=$(($index+1))
 done
+
+sed -i "0,/routes:/s/routes: \[\]/routes\:\n    - next_hop: $gateway/" /etc/os-net-config/config.yaml
 
 # It will be automatically started because the bmc services depend on it,
 # but to avoid confusion also explicitly enable it.
